@@ -1,0 +1,39 @@
+리액트 특징 = SPA
+
+1. Component
+2. jsx(Javascript xml)
+3. virtual DOM
+ - DOM: 브라우저가 화면을 그리기 위한 정보가 담겨있는 문서
+
+[설치]
+
+1. node.js 설치
+2. react 프로젝트 생성
+ - 이전: cra 방식(지원 종료)
+	npm(npx) create-react-app reactApp(<- 얘는 프로젝트 이름임)
+	cd reactApp
+	npm start
+ - 현재: vite 방식 (vite는 react를 돌리는 서버임)
+	npm create vite@latest reactApp(<- 얘는 프로젝트 이름임)
+	cd reactApp
+	npm install
+	npm run dev
+
+// vite 중지는 cmd에서 컨트롤 c
+
+
+[자바스크립트]
+
+호이스팅(hoisting, p. 49):
+	func()	
+	function func() {console.log("안녕");}
+ // 이렇게 해도 동작을 한다는 의미임
+
+함수표현식:
+	let func = function() {console.log("안녕");}
+ // 함수표현식은 호이스팅이 안됨
+
+구조 분해 할당:
+	let arr = [1, 2, 3];
+	let [one, two, three] = arr;
+ // 이러면 알아서 구조를 분해해서 변수 one에는 1이, two에는 2가, three에는 3이 할당됨
