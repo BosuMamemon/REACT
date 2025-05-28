@@ -1,26 +1,35 @@
 import "../css/Editor.css";
 import Button from "./Button.jsx";
-import {emotionList} from "../util.jsx";
+import {emotionList, getFormattedDate} from "../util.jsx";
 import EmotionItem from "./EmotionItem.jsx";
 import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 const Editor = ({initData, onSubmit}) => {
     const [state, setState] = useState({
-        date : '2025-05-20',
+        date : getFormattedDate(new Date()),
         emotionId : 3,
         content : ""
     });
     const navigate = useNavigate();
+
     useEffect(() => {
-        if(initData) setState({...initData, date: new Date(initData.date).toISOString().slice(0, 10)});
+        if(initData) {
+            setState({...initData, date: getFormattedDate(new Date(initData.date))});
+            console.log("init State: ");
+            console.log(state);
+        }
     }, [initData]);
 
     const handleSubmit = () => {
-        onSubmit({...state, date: new Date().getTime()});
+        console.log("state.date: ")
+        console.log(state.date)
+        onSubmit({...state, date: new Date(state.date).getTime()});
     }
     const handleChangeDate = (e) => {
         setState({...state, date: e.target.value});
+        console.log("change Date: ");
+        console.log(state);
     }
     const handleChangeContent = (e) => {
         setState({...state, content: e.target.value});

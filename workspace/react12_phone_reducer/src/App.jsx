@@ -1,7 +1,8 @@
 import './css/App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import PhoneForm from "./component/PhoneForm.jsx";
 import PhoneList from "./component/PhoneList.jsx";
-import {useReducer, useRef, useState} from "react";
+import React, {createContext, useReducer, useRef} from "react";
 
 let datas = [
     {id: 0, name: "홍길동", phone: "010-1111-1111"},
@@ -20,7 +21,8 @@ function reducer(state, action) {
 function App() {
     let [information, dispatcher] = useReducer(reducer, datas);
     let idRef = useRef(datas.length);
-    
+
+
     // 추가
     let handleCreate = (data) => {
         dispatcher({
@@ -46,11 +48,18 @@ function App() {
     }
 
     return (
-    <div>
-        <PhoneForm handleCreate={handleCreate}/>
-        <PhoneList information={information} handleRemove={handleRemove} handleUpdate={handleUpdate}/>
-    </div>
+        <PhoneStateContext.Provider value={information}>
+            <PhoneDispatchContext.Provider value={{handleCreate, handleUpdate, handleRemove}}>
+                <div>
+                    <PhoneForm/>
+                    <hr/>
+                    <PhoneList/>
+                </div>
+            </PhoneDispatchContext.Provider>
+        </PhoneStateContext.Provider>
     )
 }
 
-export default App
+export default App;
+export const PhoneStateContext = React.createContext();
+export const PhoneDispatchContext = React.createContext();

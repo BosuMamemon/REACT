@@ -36,6 +36,8 @@ function reducer(state, action) {
             return [action.data, ...state];
         case "UPDATE":
             return state.map(it => (String(it.id) === String(action.data.id) ? {...action.data} : it));
+        case "DELETE":
+            return state.filter(it => it.id !== action.targetId);
         default:
             return state;
     }
@@ -67,6 +69,7 @@ function App() {
                 }
             }
         );
+        alert("일기를 등록하였습니다.");
     }
     //수정
     const onUpdate = (targetId, date, content, emotionId) => {
@@ -74,14 +77,20 @@ function App() {
             type: "UPDATE",
             data: {
                 id: targetId,
-                date: new Date(date),
+                date: new Date(date).getTime(),
                 content,
                 emotionId
             }
         })
+        alert("일기를 수정하였습니다.");
     }
     //삭제
     const onDelete = (targetId) => {
+        dispatch({
+            type: "DELETE",
+            targetId
+        })
+        alert("일기를 삭제하였습니다.");
     }
 
     if(!isDataLoaded) {

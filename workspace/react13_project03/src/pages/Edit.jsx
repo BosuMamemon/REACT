@@ -19,11 +19,13 @@ const Edit = () => {
     const onClickDelete = () => {
         if(confirm("이 일기를 삭제할까요?")) {
             onDelete(id);
-            navigate("/");
+            navigate("/", {replace: true});
         }
     }
     const onSubmit = (data) => {
         if(confirm("이대로 수정할까요?")) {
+            console.log("onSubmit: ");
+            console.log(data);
             const {date, content, emotionId} = data;
             onUpdate(id, date, content, emotionId);
             navigate("/", {replace: true});
