@@ -1,12 +1,15 @@
+import useDataStore from "../store/useDataStore.jsx";
 import PhoneItem from "./PhoneItem.jsx";
 
-function PhoneList({information, handleRemove}) {
+const PhoneList = () => {
+    let datas = useDataStore(state => state.datas);
+
     return (
         <div>
             <h2>Phone List</h2>
             <div>
                 {
-                    information.map(info => (<PhoneItem info={info} key={info.id} handleRemove={handleRemove}/>))
+                    datas.map(data => (<PhoneItem data={data} key={data.id}/>))
                 }
             </div>
         </div>
