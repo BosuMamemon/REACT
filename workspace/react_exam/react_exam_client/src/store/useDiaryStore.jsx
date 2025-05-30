@@ -1,30 +1,10 @@
 import {create} from "zustand/react";
 
-const mockData = [
-    {
-        id: 0,
-        date: new Date().getTime() - 1,
-        content: "mock1",
-        emotionId: 1,
-    },
-    {
-        id: 1,
-        date: new Date().getTime() - 2,
-        content: "mock2",
-        emotionId: 2,
-    },
-    {
-        id: 2,
-        date: new Date().getTime() - 3,
-        content: "mock3",
-        emotionId: 3,
-    },
-];
-
 const useDiaryStore = create(setState => (
     {
-        diaries: mockData,
+        diaries: [],
         actions: {
+            setDiaries: initData => setState({diaries: initData}),
             createDiary: diary => setState(state => ({diaries: [...state.diaries, diary]})),
             updateDiary: diary => setState(state => (
                 {diaries: state.diaries.map(it => (String(it.id) === String(diary.id) ? diary : it))}

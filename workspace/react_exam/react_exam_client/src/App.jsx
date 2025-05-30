@@ -4,9 +4,24 @@ import Home from "./pages/Home.jsx";
 import New from "./pages/New.jsx";
 import Edit from "./pages/Edit.jsx";
 import Diary from "./pages/Diary.jsx";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import useDiaryStore from "./store/useDiaryStore.jsx";
 
 function App() {
-    return (
+    const [isLoaded, setIsLoaded] = useState(false);
+    const {setDiaries} = useDiaryStore(state => state.actions);
+
+    useEffect(() => {
+        axios.get('/api/diary/list')
+            .then(resp => {
+                console.log('API 응답:', resp.data);
+                setDiaries(resp.data);
+                setIsLoaded(true);
+            });
+    }, []);
+
+    if(isLoaded) return (
         <BrowserRouter>
             <div className={"App"}>
                 <Routes>
@@ -17,6 +32,9 @@ function App() {
                 </Routes>
             </div>
         </BrowserRouter>
+    )
+    else return (
+        <div>데이터를 불러오고 있습니다...</div>
     )
 }
 

@@ -4,7 +4,6 @@ import emotion3 from "./img/emotion3.png" ;
 import emotion4 from "./img/emotion4.png" ;
 import emotion5 from "./img/emotion5.png" ;
 
-
 export const getEmotionImgById = (emotionId) => {
     const targetEmotionId = String(emotionId);
     switch (targetEmotionId) {
@@ -15,6 +14,20 @@ export const getEmotionImgById = (emotionId) => {
         case '5': return emotion5;
         default: return null;
     }
+}
+
+export const getFormattedDate = (targetDate) => {
+    let year = targetDate.getFullYear();
+    let month = targetDate.getMonth() + 1;
+    let date = targetDate.getDate();
+    if(month < 10) {
+        month = `0${month}`;
+    }
+    if(date < 10) {
+        date = `0${date}`;
+    }
+
+    return `${year}-${month}-${date}`;
 }
 
 export const emotionList = [
@@ -52,16 +65,9 @@ export const getMonthRangeByDate = (date) => {
     return {beginTimeStamp, endTimeStamp};
 }
 
-export const getFormattedDate = (targetDate) => {
-    let year = targetDate.getFullYear();
-    let month = targetDate.getMonth() + 1;
-    let date = targetDate.getDate();
-    if(month < 10) {
-        month = `0${month}`;
-    }
-    if(date < 10) {
-        date = `0${date}`;
-    }
-
-    return `${year}-${month}-${date}`;
+export const setPageTitle = title => {
+    let titleElement = document.getElementsByTagName('title')[0];
+    titleElement.innerHTML = title;
 }
+
+
