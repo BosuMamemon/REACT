@@ -1,15 +1,17 @@
-import {create} from "zustand/react";
+import {create} from "zustand";
 
-const useDiaryStore = create(setState => (
+const useDiaryStore = create((set, get) => (
     {
         diaries: [],
         actions: {
-            setDiaries: initData => setState({diaries: initData}),
-            createDiary: diary => setState(state => ({diaries: [...state.diaries, diary]})),
-            updateDiary: diary => setState(state => (
+            setDiaries: (initData) => {
+                set({diaries: initData || []});
+            },
+            createDiary: diary => set(state => ({diaries: [...state.diaries, diary]})),
+            updateDiary: diary => set(state => (
                 {diaries: state.diaries.map(it => (String(it.id) === String(diary.id) ? diary : it))}
             )),
-            deleteDiary: targetId => setState(state => (
+            deleteDiary: targetId => set(state => (
                 {diaries: state.diaries.filter(it => String(it.id) !== String(targetId))}
             ))
         }

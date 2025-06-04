@@ -18,6 +18,23 @@ public class DiaryService {
     public List<DiaryDto> list() {
         return diaryRepository.findAll().stream().map(it -> entityToDto(it)).toList();
     }
+    public void newDiary(DiaryDto diaryDto) {
+        diaryRepository.save(dtoToEntity(diaryDto));
+    }
+    public String editDiary(Long id, DiaryDto diaryDto) {
+        Diary oldDiary = diaryRepository.findById(id).orElse(null);
+        if(oldDiary != null) {
+            oldDiary.setContent(diaryDto.getContent());
+            oldDiary.setDate(diaryDto.getDate());
+            oldDiary.setEmotionId(diaryDto.getEmotionId());
+            diaryRepository.save(oldDiary);
+            return "ok";
+        } else return "error";
+    }
+    public String delete(Long id) {
+        diaryRepository.deleteById(id);
+        return "ok";
+    }
 
     private Diary dtoToEntity(DiaryDto diaryDto) {
         return Diary.builder()

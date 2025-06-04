@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import Header from "../components/Header.jsx";
 import Editor from "../components/Editor.jsx";
 import Button from "../components/Button.jsx";
+import axios from "axios";
 
 const Edit = () => {
     let diaries = useDiaryStore(state => state.diaries);
@@ -14,14 +15,22 @@ const Edit = () => {
     let {updateDiary, deleteDiary} = useDiaryStore(state => state.actions);
     let onSubmit = data => {
         if(confirm("이대로 수정할까요?")) {
-            console.log(data);
+            const fetch = async () => {
+                const response = await axios.put(`/api/diary/edit/${id}`, JSON.parse(JSON.stringify(data)));
+                console.log("edit api 상태:", response.data);
+            }
+            fetch();
             updateDiary({...data, id: Number(id), date: new Date(data.date).getTime()});
             navigate("/", {replace: true});
-            console.log(diaries);
         }
     }
     let onClickDelete = () => {
         if(confirm("이 일기를 삭제할까요?")) {
+            const fetch = async () => {
+                const response = await axios.delete(`/api/diary/delete/${id}`);
+                console.log("delete api 상태:", response.data);
+            }
+            fetch();
             deleteDiary(id);
             navigate("/", {replace: true});
         }

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -20,7 +20,7 @@ public class Diary {
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
-    private LocalDateTime date;
+    private LocalDate date;
     @Column(nullable = false)
     private int emotionId;
 }

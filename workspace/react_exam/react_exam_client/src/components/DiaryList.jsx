@@ -17,9 +17,9 @@ const DiaryList = ({diaries}) => {
     useEffect(() => {
         const compare = (a, b) => {
             if(sortType === "latest") {
-                return Number(b.date) - Number(a.date) ;
+                return Number(new Date(b.date).getTime()) - Number(new Date(a.date).getTime()) ;
             } else if(sortType === "oldest") {
-                return Number(a.date) - Number(b.date);
+                return Number(new Date(a.date).getTime()) - Number(new Date(b.date).getTime());
             }
         }
         setSortedDiaries([...diaries].sort(compare));
